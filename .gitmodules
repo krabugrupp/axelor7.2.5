@@ -1,3 +1,3 @@
 [submodule "axelor-open-suite"]
 	path = modules/axelor-open-suite
-	url = git@github.com:krabugrupp/axelor-open-suite7.2.5.git
+	url = https://github.com/krabugrupp/axelor-open-suite7.2.5.git
