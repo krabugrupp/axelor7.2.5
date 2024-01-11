@@ -18,12 +18,6 @@ allprojects {
   group = 'com.axelor.apps'
   version = '7.2.5'
 
-  java {
-    toolchain {
-      languageVersion = JavaLanguageVersion.of(11)
-    }
-  }
-
   afterEvaluate {
     test {
       useJUnitPlatform()

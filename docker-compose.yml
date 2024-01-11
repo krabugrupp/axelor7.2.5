@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+  postgres-database:
+  postgres-backup:
+  axelor-tmpdir:
+
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 6080:8080
+
+  postgres:
+    image: postgres:12
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-database:/var/lib/postgresql/data
+      - postgres-backup:/backup
+    environment:
+      POSTGRES_USER: axelor
+      POSTGRES_PASSWORD: axelor
+
+  myaxelor:
+    image: krabugrupp/myaxelor
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - axelor-tmpdir:/usr/local/tomcat/temp/axelor
+    depends_on:
+      - postgres
+    environment:
+      CATALINA_OPTS: -DDB_URL=jdbc:postgresql://postgres:5432/axelor -DDB_USER=axelor -DDB_PASSWORD=axelor
