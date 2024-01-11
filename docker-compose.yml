@@ -16,7 +16,7 @@ services:
     image: postgres:12
     restart: always
     ports:
-      - 5432:5432
+      - 2432:5432
     volumes:
       - postgres-database:/var/lib/postgresql/data
       - postgres-backup:/backup
