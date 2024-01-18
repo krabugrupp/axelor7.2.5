@@ -9,7 +9,7 @@ volumes:
 services:
   krabutech-axelor:
     container_name: krabutech-axelor
-    image: krabutech_axelor
+    image: krabugrupp/krabutech_axelor:latest
     restart: always
     ports:
       - 8080:8080
