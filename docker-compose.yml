@@ -1,0 +1,33 @@
+version: '3.4'
+
+volumes:
+  krabutech-axelor-storage:
+    name: krabutech-axelor-storage
+  krabutech-axelor-database:
+    name: krabutech-axelor-database
+
+services:
+  krabutech-axelor:
+    container_name: krabutech-axelor
+    image: krabugrupp/krabutech_axelor:latest
+    restart: always
+    ports:
+      - 8020:8080
+    volumes:
+      - krabutech-axelor-storage:/usr/local/tomcat/temp/axelor
+    depends_on:
+      - krabutech-postgres
+    environment:
+      CATALINA_OPTS: -DDB_URL=jdbc:postgresql://localhost:7432/axelor -DDB_USER=axelor -DDB_PASSWORD=axelor -Deinvoice.authkey=262518:labpgukqgbnwizbiokyvrvlugqjsupgrfrmyiwgqecqelkcvkv
+
+  krabutech-postgres:
+    container_name: krabutech-postgres
+    image: postgres:12
+    restart: always
+    ports:
+      - 7432:5432
+    volumes:
+      - krabutech-axelor-database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: axelor
+      POSTGRES_PASSWORD: axelor
