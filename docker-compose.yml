@@ -18,7 +18,7 @@ services:
     depends_on:
       - krabutech-postgres
     environment:
-      CATALINA_OPTS: -DDB_URL=jdbc:postgresql://localhost:7432/axelor -DDB_USER=axelor -DDB_PASSWORD=axelor -Deinvoice.authkey=262518:labpgukqgbnwizbiokyvrvlugqjsupgrfrmyiwgqecqelkcvkv
+      CATALINA_OPTS: -DDB_URL=jdbc:postgresql://postgres:1432/axelor -DDB_USER=axelor -DDB_PASSWORD=axelor
 
   krabutech-postgres:
     container_name: krabutech-postgres
