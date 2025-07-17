@@ -147,7 +147,7 @@ allprojects {
         details.useTarget 'com.sun.mail:javax.mail:1.6.2'
       }
       if (details.requested.group == 'jakarta.activation') {
-        details.useTarget 'javax.activation:activation:1.1.1'
+//        details.useTarget 'javax.activation:activation:1.1.1'
       }
     }
   }
