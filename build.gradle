@@ -45,12 +45,21 @@ allprojects {
 tasks.withType(PublishToMavenRepository).configureEach { it.enabled = false }
 
 dependencies {
+tasks.withType(PublishToMavenRepository).configureEach { it.enabled = false }
   gradle.appModules.each { dir ->
     implementation project(":modules:$dir.name")
   }
 }
 
 apply from: 'gradle/style.gradle'
+
+task("dataImport", type: JavaExec) {
+  mainClass = "com.axelor.apps.erp.Main"
+  classpath = sourceSets.main.runtimeClasspath
+  if (System.getProperty("exec.args") != null) {
+    args System.getProperty("exec.args").split()
+  }
+}
 
 task archiveReports(type: Zip) {
   file("modules").traverse(type: groovy.io.FileType.DIRECTORIES, maxDepth: 1) { dir ->
@@ -137,3 +146,16 @@ task checkXmlImportsAttributes(type: CheckXmlImportsAttributes) {
 task checkXml(dependsOn: ['checkXmlDomainsAttributes','checkXmlViewsAttributes', 'checkXmlImportsAttributes'])
 
 build.finalizedBy archiveReports
+
+allprojects {
+  configurations.all {
+    resolutionStrategy.eachDependency { details ->
+      if (details.requested.group == 'org.eclipse.angus') {
+        details.useTarget 'com.sun.mail:javax.mail:1.6.2'
+      }
+      if (details.requested.group == 'jakarta.activation') {
+//        details.useTarget 'javax.activation:activation:1.1.1'
+      }
+    }
+  }
+}
